@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#070b10">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>WoMo Display</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">WoMo</div>
+      <div class="status-row">
+        <span id="offlineState" class="pill neutral">Offline-App</span>
+        <span id="bleState" class="pill bad">Bluetooth getrennt</span>
+        <span id="sensorTime" class="clock">--:--</span>
+      </div>
+    </header>
+
+    <main>
+      <section id="page-level" class="page active">
+        <div class="page-head"><h1>Level</h1><div class="angles"><span>X <b id="levelX">0.00°</b></span><span>Y <b id="levelY">0.00°</b></span></div></div>
+        <div class="level-layout">
+          <div class="wheel fl"><span>VL</span><strong id="liftFL">0.0</strong><small>cm</small><div id="wedgeFL" class="wedge"></div></div>
+          <div class="wheel fr"><span>VR</span><strong id="liftFR">0.0</strong><small>cm</small><div id="wedgeFR" class="wedge"></div></div>
+          <div class="vehicle-card">
+            <div class="vehicle-front">FRONT</div>
+            <div class="vehicle-body">
+              <div class="bubble-box"><div id="bubble" class="bubble"></div><div class="cross h"></div><div class="cross v"></div></div>
+            </div>
+            <div id="levelHint" class="level-hint">Sensor verbinden</div>
+          </div>
+          <div class="wheel rl"><span>HL</span><strong id="liftRL">0.0</strong><small>cm</small><div id="wedgeRL" class="wedge"></div></div>
+          <div class="wheel rr"><span>HR</span><strong id="liftRR">0.0</strong><small>cm</small><div id="wedgeRR" class="wedge"></div></div>
+        </div>
+        <div class="action-strip"><button id="zeroLevel" class="danger">Level nullen</button><span id="zeroState" class="muted"></span></div>
+      </section>
+
+      <section id="page-weather" class="page">
+        <div class="page-head"><h1>Wetter</h1><span id="weatherDate" class="subtle">--</span></div>
+        <div class="cards four">
+          <article class="metric"><span>Temperatur</span><strong id="temp">--</strong><small>°C</small></article>
+          <article class="metric"><span>Luftfeuchte</span><strong id="humidity">--</strong><small>%</small></article>
+          <article class="metric"><span>Luftdruck</span><strong id="pressure">--</strong><small>hPa</small></article>
+          <article class="metric"><span>Höhe</span><strong id="altitude">--</strong><small>m</small></article>
+        </div>
+        <article class="wide-card">
+          <span>Luftdrucktrend</span>
+          <strong id="pressureTrend">--</strong>
+          <small id="pressureTrendPeriod">--</small>
+        </article>
+      </section>
+
+      <section id="page-victron" class="page">
+        <div class="page-head"><h1>PV & Batterie</h1><span id="chargeState" class="pill neutral">--</span></div>
+        <div class="victron-grid">
+          <article class="battery-card">
+            <span>Batterie</span>
+            <div class="battery-shell"><div id="batteryFill" class="battery-fill"></div></div>
+            <strong id="batteryPct">--%</strong>
+          </article>
+          <article class="metric"><span>Spannung</span><strong id="batteryV">--</strong><small>V</small></article>
+          <article class="metric"><span>Solar aktuell</span><strong id="solarW">--</strong><small>W</small></article>
+          <article class="metric"><span>Ertrag heute</span><strong id="yieldWh">--</strong><small>Wh</small></article>
+        </div>
+      </section>
+
+      <section id="page-setup" class="page">
+        <div class="page-head"><h1>System</h1><span id="sequence" class="subtle">Sequenz --</span></div>
+        <div class="setup-grid">
+          <article class="setting-card connection-card">
+            <div><span>Sensor</span><strong id="sensorName">WoMo_arnim_Sensor</strong></div>
+            <button id="connectBle" class="primary">Bluetooth verbinden</button>
+          </article>
+          <article class="setting-card">
+            <label>Radstand</label>
+            <div class="stepper"><button data-step="wheelbase" data-delta="-5">−</button><strong id="wheelbase">405 cm</strong><button data-step="wheelbase" data-delta="5">+</button></div>
+          </article>
+          <article class="setting-card">
+            <label>Spurweite</label>
+            <div class="stepper"><button data-step="track" data-delta="-5">−</button><strong id="track">180 cm</strong><button data-step="track" data-delta="5">+</button></div>
+          </article>
+          <article class="setting-card">
+            <label>Sensor OLED aus nach</label>
+            <div class="stepper"><button data-step="oledTimeout" data-delta="-1">−</button><strong id="oledTimeout">10 min</strong><button data-step="oledTimeout" data-delta="1">+</button></div>
+            <button id="oledPower" class="secondary">OLED Ein</button>
+          </article>
+          <article class="setting-card">
+            <label>MPU Einbaurichtung</label>
+            <button id="mpuOrientation" class="secondary">Vorwärts</button>
+          </article>
+          <article class="setting-card">
+            <label>Sensor WLAN</label>
+            <strong id="wifiState">--</strong>
+          </article>
+          <article class="setting-card danger-zone">
+            <label>Sensor</label>
+            <button id="restartSensor" class="danger">Sensor neu starten</button>
+          </article>
+        </div>
+        <div class="diagnostics"><span id="lastUpdate">Noch keine Daten</span><span id="errorText"></span></div>
+      </section>
+    </main>
+
+    <nav class="tabbar">
+      <button data-page="level" class="active">Level</button>
+      <button data-page="weather">Wetter</button>
+      <button data-page="victron">PV/Batterie</button>
+      <button data-page="setup">System</button>
+    </nav>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
