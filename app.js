@@ -187,7 +187,7 @@ function setupUi() {
 
 async function setupOffline() {
   const el=$('offlineState');
-  if (!('serviceWorker' in navigator)) { el.textContent='Offline-Cache nicht verfügbar';el.className='pill warn';return; }
+  if (!('serviceWorker' in navigator)) { el.textContent='Online-Start nötig';el.className='pill warn';return; }
   try {
     await navigator.serviceWorker.register('./sw.js');
     await navigator.serviceWorker.ready;
