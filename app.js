@@ -60,7 +60,7 @@ async function connectGatt(){
  app.connected=true;setBleStatus("Bluetooth verbunden","good");$("connectBle").textContent="Neu verbinden";
  try{await readState()}catch(_){await sendCommand("state")} enableScreenDim(false);
 }
-function onDisconnected(){app.connected=false;app.server=null;app.stateChar=null;app.commandChar=null;setBleStatus("Bluetooth getrennt","bad");$("levelHint").textContent="Sensor getrennt"}
+function onDisconnected(){app.connected=false;app.server=null;app.stateChar=null;app.commandChar=null;setBleStatus("Bluetooth getrennt","bad");$("levelHint").textContent="Sensor getrennt";renderWifiState()}
 async function readState(){if(!app.stateChar)return;onStateValue(await app.stateChar.readValue())}
 async function sendCommand(command){
  if(!app.connected||!app.commandChar){setError("Sensor ist nicht verbunden.");return false}
@@ -70,16 +70,22 @@ async function sendCommand(command){
 function chargeText(v){return({0:"Aus",1:"Low Power",2:"Fehler",3:"Bulk",4:"Absorption",5:"Float",6:"Lagerung",7:"Ausgleich",9:"Passthru",11:"Inverter",245:"Netzteil",246:"Start",247:"Re-Absorption",248:"Auto-Ausgleich",252:"Battery Safe",255:"Extern"})[v]||"Unbekannt"}
 
 function wedgeLevel(cm){return cm<1?0:cm<=4?1:cm<=7?2:3}
-function setLiftIndicator(id,cm){const el=$(id);el.className=`lift-indicator level-${wedgeLevel(cm)}`}
+function setLiftIndicator(id,cm){$(id).className=`lift-indicator level-${wedgeLevel(cm)}`}
+function renderWifiState(){
+ const el=$("wifiState");
+ if(!el)return;
+ if(!app.connected){el.textContent="--";el.style.color="var(--muted)";return}
+ el.textContent=app.state.wifi?"WLAN aktiv":"WLAN inaktiv";
+ el.style.color=app.state.wifi?"var(--green)":"var(--muted)";
+}
 function renderWeather(s){
  $("temp").textContent=fmt(s.temp,1);$("humidity").textContent=s.humidity>=0?fmt(s.humidity,0):"--";$("pressure").textContent=fmt(s.pressure,1);$("altitude").textContent=fmt(s.altitude,0);
  $("pressureTrend").textContent=`${s.trend>=0?"+":""}${fmt(s.trend,1)} hPa`;$("pressureTrendPeriod").textContent=s.trendMinutes?`in ${s.trendMinutes} min`:"kein Zeitraum";
- const symbol=$("weatherSymbol"), trend=$("trendText");
- symbol.className="weather-symbol ";
+ const symbol=$("weatherSymbol"),trend=$("trendText");symbol.className="weather-symbol ";
  if(s.trend>0.8){symbol.classList.add("weather-sun");trend.textContent="Steigend"}
  else if(s.trend<-0.8){symbol.classList.add("weather-rain");trend.textContent="Fallend"}
  else{symbol.classList.add("weather-cloud");trend.textContent="Stabil"}
- const angle=clamp(s.trend*18,-70,70);$("trendNeedle").style.transform=`rotate(${angle}deg)`;
+ $("trendNeedle").style.transform=`rotate(${clamp(s.trend*18,-70,70)}deg)`;
  if(s.year>=2024){const dt=new Date(s.year,s.month-1,s.day,s.hour,s.minute);$("weatherDate").textContent=dt.toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit",year:"numeric"});$("sensorTime").textContent=`${String(s.hour).padStart(2,"0")}:${String(s.minute).padStart(2,"0")}`}
 }
 function render(){
@@ -91,10 +97,13 @@ function render(){
  const maxLift=Math.max(s.fl,s.fr,s.rl,s.rr);$("levelHint").textContent=maxLift<1?"Fahrzeug steht waagerecht":`Max. Anhebung ${fmt(maxLift,1)} cm`;
  $("bubble").style.background=maxLift<1?"var(--green)":maxLift<=4?"var(--yellow)":"var(--orange)";
  renderWeather(s);
+
  const pct=clamp(s.batteryPct,0,100);$("batteryPct").textContent=`${fmt(pct,0)}%`;$("batteryV").textContent=fmt(s.batteryV,2);$("solarW").textContent=fmt(s.solarW,0);$("yieldWh").textContent=fmt(s.yieldWh,0);$("chargeState").textContent=chargeText(s.chargeState);
  $("batteryFill").style.height=`calc(${pct}% - 12px)`;$("batteryFill").style.background=pct<20?"var(--red)":pct<50?"var(--yellow)":"var(--green)";
+
  $("sequence").textContent=`Sequenz ${s.sequence}`;$("wheelbase").textContent=`${s.wheelbase} cm`;$("track").textContent=`${s.track} cm`;$("oledTimeout").textContent=`${s.oledTimeout} min`;
- $("oledPower").textContent=s.oledOn?"OLED Ein":"OLED Aus";$("mpuOrientation").textContent=s.mpuReverse?"Rückwärts":"Vorwärts";$("wifiState").textContent=s.wifi?"Verbunden":"Nicht verbunden";$("wifiState").style.color=s.wifi?"var(--green)":"var(--muted)";
+ $("oledPower").textContent=s.oledOn?"OLED Ein":"OLED Aus";$("mpuOrientation").textContent=s.mpuReverse?"Rückwärts":"Vorwärts";
+ renderWifiState();
 }
 async function changeSetting(kind,delta){
  const s=app.state;

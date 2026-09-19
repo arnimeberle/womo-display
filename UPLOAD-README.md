@@ -1,23 +1,19 @@
-# Upload
+# Upload v4
 
-Diese vier Dateien im Repository `arnimeberle/womo-display` im Root ersetzen:
+Im Root von `arnimeberle/womo-display` ersetzen:
 
 - index.html
 - styles.css
 - app.js
 - sw.js
 
-`manifest.webmanifest`, `.nojekyll` und `README.md` bleiben unverändert.
-
-Wichtig: `sw.js` verwendet jetzt Cache-Version `womo-ipad-v3`.
-Nach dem Upload die Seite einmal online neu laden.
-
 Änderungen:
-- Level: Querformat links FRONT / rechts HECK
-- Fiat-Ducato-Kastenwagen als Draufsicht
-- Libelle im Fahrzeug
-- pro Rad: grüner Punkt bei 0, sonst 1–3 Balken
-- Wetter: Sonne / Wolken / Regen anhand Luftdrucktrend
-- halbkreisförmige Trendanzeige
-- globales 3D-/Raised-Panel-Design
-- BLE-Protokoll unverändert
+- Level-Stufen: 1–3 horizontale 3D-Linien übereinander
+- cm-Wert direkt unter dem Stufenindikator
+- Fahrzeugräder hell statt schwarz und doppelt so breit
+- `Level nullen` nach System verschoben
+- PV-Ladestatus (Float/Bulk/...) ca. 50 % größer und weiß
+- Sensor-WLAN zeigt bei bestehender BLE-Verbindung nur `WLAN aktiv` / `WLAN inaktiv`, nicht pauschal `Verbunden`
+- Service-Worker-Cache auf `womo-ipad-v4` erhöht
+
+Nach Upload einmal online neu laden.

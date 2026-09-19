@@ -25,7 +25,10 @@
     <section id="page-level" class="page active">
       <div class="page-head">
         <h1>Level</h1>
-        <div class="angles raised-inline"><span>X <b id="levelX">0.00°</b></span><span>Y <b id="levelY">0.00°</b></span></div>
+        <div class="angles raised-inline">
+          <span>X <b id="levelX">0.00°</b></span>
+          <span>Y <b id="levelY">0.00°</b></span>
+        </div>
       </div>
 
       <div class="level-stage raised-panel">
@@ -33,20 +36,39 @@
         <div class="rear-label">HECK ▶</div>
 
         <div class="lift-marker marker-fl">
-          <span>VL</span><div id="indicatorFL" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
-          <strong id="liftFL">0.0</strong><small>cm</small>
+          <span class="wheel-label">VL</span>
+          <div id="indicatorFL" class="lift-indicator level-0">
+            <b class="dot"></b>
+            <div class="step-lines"><i></i><i></i><i></i></div>
+          </div>
+          <div class="lift-value"><strong id="liftFL">0.0</strong><small> cm</small></div>
         </div>
+
         <div class="lift-marker marker-fr">
-          <span>VR</span><div id="indicatorFR" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
-          <strong id="liftFR">0.0</strong><small>cm</small>
+          <span class="wheel-label">VR</span>
+          <div id="indicatorFR" class="lift-indicator level-0">
+            <b class="dot"></b>
+            <div class="step-lines"><i></i><i></i><i></i></div>
+          </div>
+          <div class="lift-value"><strong id="liftFR">0.0</strong><small> cm</small></div>
         </div>
+
         <div class="lift-marker marker-rl">
-          <span>HL</span><div id="indicatorRL" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
-          <strong id="liftRL">0.0</strong><small>cm</small>
+          <span class="wheel-label">HL</span>
+          <div id="indicatorRL" class="lift-indicator level-0">
+            <b class="dot"></b>
+            <div class="step-lines"><i></i><i></i><i></i></div>
+          </div>
+          <div class="lift-value"><strong id="liftRL">0.0</strong><small> cm</small></div>
         </div>
+
         <div class="lift-marker marker-rr">
-          <span>HR</span><div id="indicatorRR" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
-          <strong id="liftRR">0.0</strong><small>cm</small>
+          <span class="wheel-label">HR</span>
+          <div id="indicatorRR" class="lift-indicator level-0">
+            <b class="dot"></b>
+            <div class="step-lines"><i></i><i></i><i></i></div>
+          </div>
+          <div class="lift-value"><strong id="liftRR">0.0</strong><small> cm</small></div>
         </div>
 
         <div class="ducato">
@@ -68,11 +90,6 @@
         </div>
 
         <div id="levelHint" class="level-hint raised-inline">Sensor verbinden</div>
-      </div>
-
-      <div class="action-strip">
-        <button id="zeroLevel" class="button-3d danger">Level nullen</button>
-        <span id="zeroState" class="muted"></span>
       </div>
     </section>
 
@@ -108,7 +125,10 @@
     </section>
 
     <section id="page-victron" class="page">
-      <div class="page-head"><h1>PV & Batterie</h1><span id="chargeState" class="pill neutral">--</span></div>
+      <div class="page-head">
+        <h1>PV & Batterie</h1>
+        <span id="chargeState" class="pill neutral charge-state">--</span>
+      </div>
       <div class="victron-grid">
         <article class="battery-card raised-panel">
           <span>Batterie</span>
@@ -130,12 +150,43 @@
           <div><span>Sensor</span><strong id="sensorName">WoMo_arnim_Sensor</strong></div>
           <button id="connectBle" class="button-3d primary">Bluetooth verbinden</button>
         </article>
-        <article class="setting-card raised-panel"><label>Radstand</label><div class="stepper"><button class="button-3d" data-step="wheelbase" data-delta="-5">−</button><strong id="wheelbase">405 cm</strong><button class="button-3d" data-step="wheelbase" data-delta="5">+</button></div></article>
-        <article class="setting-card raised-panel"><label>Spurweite</label><div class="stepper"><button class="button-3d" data-step="track" data-delta="-5">−</button><strong id="track">180 cm</strong><button class="button-3d" data-step="track" data-delta="5">+</button></div></article>
-        <article class="setting-card raised-panel"><label>Sensor OLED aus nach</label><div class="stepper"><button class="button-3d" data-step="oledTimeout" data-delta="-1">−</button><strong id="oledTimeout">10 min</strong><button class="button-3d" data-step="oledTimeout" data-delta="1">+</button></div><button id="oledPower" class="button-3d secondary">OLED Ein</button></article>
-        <article class="setting-card raised-panel"><label>MPU Einbaurichtung</label><button id="mpuOrientation" class="button-3d secondary">Vorwärts</button></article>
-        <article class="setting-card raised-panel"><label>Sensor WLAN</label><strong id="wifiState">--</strong></article>
-        <article class="setting-card raised-panel danger-zone"><label>Sensor</label><button id="restartSensor" class="button-3d danger">Sensor neu starten</button></article>
+
+        <article class="setting-card raised-panel">
+          <label>Radstand</label>
+          <div class="stepper"><button class="button-3d" data-step="wheelbase" data-delta="-5">−</button><strong id="wheelbase">405 cm</strong><button class="button-3d" data-step="wheelbase" data-delta="5">+</button></div>
+        </article>
+
+        <article class="setting-card raised-panel">
+          <label>Spurweite</label>
+          <div class="stepper"><button class="button-3d" data-step="track" data-delta="-5">−</button><strong id="track">180 cm</strong><button class="button-3d" data-step="track" data-delta="5">+</button></div>
+        </article>
+
+        <article class="setting-card raised-panel">
+          <label>Sensor OLED aus nach</label>
+          <div class="stepper"><button class="button-3d" data-step="oledTimeout" data-delta="-1">−</button><strong id="oledTimeout">10 min</strong><button class="button-3d" data-step="oledTimeout" data-delta="1">+</button></div>
+          <button id="oledPower" class="button-3d secondary">OLED Ein</button>
+        </article>
+
+        <article class="setting-card raised-panel">
+          <label>MPU Einbaurichtung</label>
+          <button id="mpuOrientation" class="button-3d secondary">Vorwärts</button>
+        </article>
+
+        <article class="setting-card raised-panel">
+          <label>Sensor WLAN</label>
+          <strong id="wifiState">--</strong>
+        </article>
+
+        <article class="setting-card raised-panel">
+          <label>Level</label>
+          <button id="zeroLevel" class="button-3d danger">Level nullen</button>
+          <span id="zeroState" class="muted"></span>
+        </article>
+
+        <article class="setting-card raised-panel danger-zone">
+          <label>Sensor</label>
+          <button id="restartSensor" class="button-3d danger">Sensor neu starten</button>
+        </article>
       </div>
       <div class="diagnostics"><span id="lastUpdate">Noch keine Daten</span><span id="errorText"></span></div>
     </section>
