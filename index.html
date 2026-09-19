@@ -11,109 +11,143 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app">
-    <header class="topbar">
-      <div class="brand">WoMo</div>
-      <div class="status-row">
-        <span id="offlineState" class="pill neutral">Offline-App</span>
-        <span id="bleState" class="pill bad">Bluetooth getrennt</span>
-        <span id="sensorTime" class="clock">--:--</span>
+<div id="app">
+  <header class="topbar raised-panel">
+    <div class="brand">WoMo</div>
+    <div class="status-row">
+      <span id="offlineState" class="pill neutral">Offline-App</span>
+      <span id="bleState" class="pill bad">Bluetooth getrennt</span>
+      <span id="sensorTime" class="clock">--:--</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="page-level" class="page active">
+      <div class="page-head">
+        <h1>Level</h1>
+        <div class="angles raised-inline"><span>X <b id="levelX">0.00°</b></span><span>Y <b id="levelY">0.00°</b></span></div>
       </div>
-    </header>
 
-    <main>
-      <section id="page-level" class="page active">
-        <div class="page-head"><h1>Level</h1><div class="angles"><span>X <b id="levelX">0.00°</b></span><span>Y <b id="levelY">0.00°</b></span></div></div>
-        <div class="level-layout">
-          <div class="wheel fl"><span>VL</span><strong id="liftFL">0.0</strong><small>cm</small><div id="wedgeFL" class="wedge"></div></div>
-          <div class="wheel fr"><span>VR</span><strong id="liftFR">0.0</strong><small>cm</small><div id="wedgeFR" class="wedge"></div></div>
-          <div class="vehicle-card">
-            <div class="vehicle-front">FRONT</div>
-            <div class="vehicle-body">
-              <div class="bubble-box"><div id="bubble" class="bubble"></div><div class="cross h"></div><div class="cross v"></div></div>
+      <div class="level-stage raised-panel">
+        <div class="front-arrow">◀ FRONT</div>
+        <div class="rear-label">HECK ▶</div>
+
+        <div class="lift-marker marker-fl">
+          <span>VL</span><div id="indicatorFL" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
+          <strong id="liftFL">0.0</strong><small>cm</small>
+        </div>
+        <div class="lift-marker marker-fr">
+          <span>VR</span><div id="indicatorFR" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
+          <strong id="liftFR">0.0</strong><small>cm</small>
+        </div>
+        <div class="lift-marker marker-rl">
+          <span>HL</span><div id="indicatorRL" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
+          <strong id="liftRL">0.0</strong><small>cm</small>
+        </div>
+        <div class="lift-marker marker-rr">
+          <span>HR</span><div id="indicatorRR" class="lift-indicator level-0"><b class="dot"></b><i></i><i></i><i></i></div>
+          <strong id="liftRR">0.0</strong><small>cm</small>
+        </div>
+
+        <div class="ducato">
+          <div class="ducato-body">
+            <div class="cab"></div>
+            <div class="windshield"></div>
+            <div class="roof-panel"></div>
+            <div class="rear-door"></div>
+            <div class="wheel wf1"></div><div class="wheel wf2"></div>
+            <div class="wheel wr1"></div><div class="wheel wr2"></div>
+            <div class="ducato-text">FIAT DUCATO</div>
+
+            <div class="bubble-box">
+              <div class="ring outer"></div><div class="ring inner"></div>
+              <div class="cross h"></div><div class="cross v"></div>
+              <div id="bubble" class="bubble"></div>
             </div>
-            <div id="levelHint" class="level-hint">Sensor verbinden</div>
           </div>
-          <div class="wheel rl"><span>HL</span><strong id="liftRL">0.0</strong><small>cm</small><div id="wedgeRL" class="wedge"></div></div>
-          <div class="wheel rr"><span>HR</span><strong id="liftRR">0.0</strong><small>cm</small><div id="wedgeRR" class="wedge"></div></div>
         </div>
-        <div class="action-strip"><button id="zeroLevel" class="danger">Level nullen</button><span id="zeroState" class="muted"></span></div>
-      </section>
 
-      <section id="page-weather" class="page">
-        <div class="page-head"><h1>Wetter</h1><span id="weatherDate" class="subtle">--</span></div>
-        <div class="cards four">
-          <article class="metric"><span>Temperatur</span><strong id="temp">--</strong><small>°C</small></article>
-          <article class="metric"><span>Luftfeuchte</span><strong id="humidity">--</strong><small>%</small></article>
-          <article class="metric"><span>Luftdruck</span><strong id="pressure">--</strong><small>hPa</small></article>
-          <article class="metric"><span>Höhe</span><strong id="altitude">--</strong><small>m</small></article>
-        </div>
-        <article class="wide-card">
-          <span>Luftdrucktrend</span>
-          <strong id="pressureTrend">--</strong>
+        <div id="levelHint" class="level-hint raised-inline">Sensor verbinden</div>
+      </div>
+
+      <div class="action-strip">
+        <button id="zeroLevel" class="button-3d danger">Level nullen</button>
+        <span id="zeroState" class="muted"></span>
+      </div>
+    </section>
+
+    <section id="page-weather" class="page">
+      <div class="page-head"><h1>Wetter</h1><span id="weatherDate" class="subtle">--</span></div>
+      <div class="weather-layout">
+        <article class="weather-visual raised-panel">
+          <div id="weatherSymbol" class="weather-symbol weather-cloud">
+            <div class="sun"><span></span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="cloud"><b></b><b></b><b></b><span></span></div>
+            <div class="rain"><i></i><i></i><i></i></div>
+          </div>
+          <svg class="trend-gauge" viewBox="0 0 220 130">
+            <path d="M30 108 A80 80 0 0 1 190 108" class="gauge-arc"/>
+            <line x1="30" y1="108" x2="42" y2="108"/><line x1="53" y1="51" x2="61" y2="60"/>
+            <line x1="110" y1="28" x2="110" y2="41"/><line x1="167" y1="51" x2="159" y2="60"/>
+            <line x1="190" y1="108" x2="178" y2="108"/>
+            <line id="trendNeedle" x1="110" y1="108" x2="110" y2="42" class="gauge-needle"/>
+            <circle cx="110" cy="108" r="7" class="gauge-hub"/>
+          </svg>
+          <strong id="trendText" class="trend-text">Trend sammelt</strong>
+          <span id="pressureTrend" class="trend-delta">--</span>
           <small id="pressureTrendPeriod">--</small>
         </article>
-      </section>
 
-      <section id="page-victron" class="page">
-        <div class="page-head"><h1>PV & Batterie</h1><span id="chargeState" class="pill neutral">--</span></div>
-        <div class="victron-grid">
-          <article class="battery-card">
-            <span>Batterie</span>
-            <div class="battery-shell"><div id="batteryFill" class="battery-fill"></div></div>
-            <strong id="batteryPct">--%</strong>
-          </article>
-          <article class="metric"><span>Spannung</span><strong id="batteryV">--</strong><small>V</small></article>
-          <article class="metric"><span>Solar aktuell</span><strong id="solarW">--</strong><small>W</small></article>
-          <article class="metric"><span>Ertrag heute</span><strong id="yieldWh">--</strong><small>Wh</small></article>
+        <div class="weather-values">
+          <article class="value-row raised-panel"><span>Temperatur</span><strong id="temp">--</strong><small>°C</small></article>
+          <article class="value-row raised-panel"><span>Luftfeuchte</span><strong id="humidity">--</strong><small>%</small></article>
+          <article class="value-row raised-panel"><span>Höhe</span><strong id="altitude">--</strong><small>m</small></article>
+          <article class="value-row raised-panel"><span>Druck</span><strong id="pressure">--</strong><small>hPa</small></article>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="page-setup" class="page">
-        <div class="page-head"><h1>System</h1><span id="sequence" class="subtle">Sequenz --</span></div>
-        <div class="setup-grid">
-          <article class="setting-card connection-card">
-            <div><span>Sensor</span><strong id="sensorName">WoMo_arnim_Sensor</strong></div>
-            <button id="connectBle" class="primary">Bluetooth verbinden</button>
-          </article>
-          <article class="setting-card">
-            <label>Radstand</label>
-            <div class="stepper"><button data-step="wheelbase" data-delta="-5">−</button><strong id="wheelbase">405 cm</strong><button data-step="wheelbase" data-delta="5">+</button></div>
-          </article>
-          <article class="setting-card">
-            <label>Spurweite</label>
-            <div class="stepper"><button data-step="track" data-delta="-5">−</button><strong id="track">180 cm</strong><button data-step="track" data-delta="5">+</button></div>
-          </article>
-          <article class="setting-card">
-            <label>Sensor OLED aus nach</label>
-            <div class="stepper"><button data-step="oledTimeout" data-delta="-1">−</button><strong id="oledTimeout">10 min</strong><button data-step="oledTimeout" data-delta="1">+</button></div>
-            <button id="oledPower" class="secondary">OLED Ein</button>
-          </article>
-          <article class="setting-card">
-            <label>MPU Einbaurichtung</label>
-            <button id="mpuOrientation" class="secondary">Vorwärts</button>
-          </article>
-          <article class="setting-card">
-            <label>Sensor WLAN</label>
-            <strong id="wifiState">--</strong>
-          </article>
-          <article class="setting-card danger-zone">
-            <label>Sensor</label>
-            <button id="restartSensor" class="danger">Sensor neu starten</button>
-          </article>
+    <section id="page-victron" class="page">
+      <div class="page-head"><h1>PV & Batterie</h1><span id="chargeState" class="pill neutral">--</span></div>
+      <div class="victron-grid">
+        <article class="battery-card raised-panel">
+          <span>Batterie</span>
+          <div class="battery-shell"><div id="batteryFill" class="battery-fill"></div></div>
+          <strong id="batteryPct">--%</strong>
+        </article>
+        <div class="victron-values">
+          <article class="value-row raised-panel"><span>Spannung</span><strong id="batteryV">--</strong><small>V</small></article>
+          <article class="value-row raised-panel"><span>Solar aktuell</span><strong id="solarW">--</strong><small>W</small></article>
+          <article class="value-row raised-panel"><span>Ertrag heute</span><strong id="yieldWh">--</strong><small>Wh</small></article>
         </div>
-        <div class="diagnostics"><span id="lastUpdate">Noch keine Daten</span><span id="errorText"></span></div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <nav class="tabbar">
-      <button data-page="level" class="active">Level</button>
-      <button data-page="weather">Wetter</button>
-      <button data-page="victron">PV/Batterie</button>
-      <button data-page="setup">System</button>
-    </nav>
-  </div>
+    <section id="page-setup" class="page">
+      <div class="page-head"><h1>System</h1><span id="sequence" class="subtle">Sequenz --</span></div>
+      <div class="setup-grid">
+        <article class="setting-card raised-panel connection-card">
+          <div><span>Sensor</span><strong id="sensorName">WoMo_arnim_Sensor</strong></div>
+          <button id="connectBle" class="button-3d primary">Bluetooth verbinden</button>
+        </article>
+        <article class="setting-card raised-panel"><label>Radstand</label><div class="stepper"><button class="button-3d" data-step="wheelbase" data-delta="-5">−</button><strong id="wheelbase">405 cm</strong><button class="button-3d" data-step="wheelbase" data-delta="5">+</button></div></article>
+        <article class="setting-card raised-panel"><label>Spurweite</label><div class="stepper"><button class="button-3d" data-step="track" data-delta="-5">−</button><strong id="track">180 cm</strong><button class="button-3d" data-step="track" data-delta="5">+</button></div></article>
+        <article class="setting-card raised-panel"><label>Sensor OLED aus nach</label><div class="stepper"><button class="button-3d" data-step="oledTimeout" data-delta="-1">−</button><strong id="oledTimeout">10 min</strong><button class="button-3d" data-step="oledTimeout" data-delta="1">+</button></div><button id="oledPower" class="button-3d secondary">OLED Ein</button></article>
+        <article class="setting-card raised-panel"><label>MPU Einbaurichtung</label><button id="mpuOrientation" class="button-3d secondary">Vorwärts</button></article>
+        <article class="setting-card raised-panel"><label>Sensor WLAN</label><strong id="wifiState">--</strong></article>
+        <article class="setting-card raised-panel danger-zone"><label>Sensor</label><button id="restartSensor" class="button-3d danger">Sensor neu starten</button></article>
+      </div>
+      <div class="diagnostics"><span id="lastUpdate">Noch keine Daten</span><span id="errorText"></span></div>
+    </section>
+  </main>
 
-  <script src="app.js" defer></script>
+  <nav class="tabbar">
+    <button data-page="level" class="button-3d active">Level</button>
+    <button data-page="weather" class="button-3d">Wetter</button>
+    <button data-page="victron" class="button-3d">PV/Batterie</button>
+    <button data-page="setup" class="button-3d">System</button>
+  </nav>
+</div>
+<script src="app.js" defer></script>
 </body>
 </html>
