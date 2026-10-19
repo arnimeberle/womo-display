@@ -77,9 +77,10 @@ main{position:relative;overflow:hidden}.page{display:none;height:100%;overflow:a
 }
 
 @media (orientation: portrait){
+  /* Restore vehicle orientation: top = front, bottom = rear (rotate to portrait like old version) */
   .level-stage{min-height:500px;height:55vh}
-  .ducato{width:72%;height:52%;transform:translate(-50%,-50%)}
-  .marker-fl{left:10%;top:8%}.marker-fr{right:10%;left:auto;top:8%}.marker-rl{left:10%;bottom:9%}.marker-rr{right:10%;bottom:9%}
+  .ducato{width:72%;height:42%;transform:translate(-50%,-50%) rotate(90deg)}
+  .marker-fl{left:12%;top:8%}.marker-fr{right:12%;left:auto;top:8%}.marker-rl{left:12%;top:auto;bottom:8%}.marker-rr{right:12%;bottom:8%}
   .front-arrow{left:50%;transform:translateX(-50%)}.rear-label{right:50%;transform:translateX(50%);top:auto;bottom:10px}
   .weather-layout,.victron-grid{grid-template-columns:1fr;grid-template-rows:auto 1fr}.weather-values{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
   .setup-grid{grid-template-columns:1fr 1fr}.connection-card{grid-column:span 2}
